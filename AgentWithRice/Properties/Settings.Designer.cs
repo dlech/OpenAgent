@@ -22,5 +22,29 @@ namespace dlech.AgentWithRice.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int OpenFileDialogFilterIndex {
+            get {
+                return ((int)(this["OpenFileDialogFilterIndex"]));
+            }
+            set {
+                this["OpenFileDialogFilterIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OpenFileDialogInitialDirectory {
+            get {
+                return ((string)(this["OpenFileDialogInitialDirectory"]));
+            }
+            set {
+                this["OpenFileDialogInitialDirectory"] = value;
+            }
+        }
     }
 }
