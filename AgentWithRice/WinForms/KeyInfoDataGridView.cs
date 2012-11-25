@@ -7,24 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using dlech.SshAgentLib;
+using System.Security;
 
 namespace dlech.AgentWithRice.WinForms
 {
-  public partial class KeyInfoDataGridView : UserControl
+  public partial class KeyInfoViewer : UserControl
   {
     private Agent mAgent;
     BindingList<KeyWrapper> mKeyCollection;
-
-    public DataGridViewSelectedRowCollection SelectedRows
-    {
-      get
-      {
-        return dataGridView1.SelectedRows;
-      }
-    }
-
-
-    public KeyInfoDataGridView()
+    
+    public KeyInfoViewer()
     {
       InitializeComponent();
     }
@@ -34,7 +26,7 @@ namespace dlech.AgentWithRice.WinForms
       mAgent = aAgent;
 
       mKeyCollection = new BindingList<KeyWrapper>();
-      dataGridView1.DataSource = mKeyCollection;
+      dataGridView.DataSource = mKeyCollection;
       mAgent.KeyListChanged += AgentKeyListChangeHandler;
       mAgent.Locked += AgentLockHandler;
       UpdateVisibility();
@@ -79,12 +71,44 @@ namespace dlech.AgentWithRice.WinForms
 
     private void UpdateVisibility()
     {
-      dataGridView1.Visible = mAgent.KeyList.Count() > 0 && !mAgent.IsLocked;
+      dataGridView.Visible = mAgent.KeyList.Count() > 0 && !mAgent.IsLocked;
       if (mAgent.IsLocked) {
         messageLabel.Text = "Locked";
       } else {
         messageLabel.Text = "No Keys Loaded";
       }
     }
+
+    private void any_DragEnter(object sender, DragEventArgs e)
+    {
+      if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
+        e.Effect = DragDropEffects.Move;
+      } else {
+        e.Effect = DragDropEffects.None;
+      }
+    }
+
+    private void any_DragDrop(object sender, DragEventArgs e)
+    {
+      if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
+        var fileNames = e.Data.GetData(DataFormats.FileDrop) as string[];
+        var addFileResults = mAgent.AddFiles(fileNames, GetPassword);
+        foreach (var result in addFileResults) {
+          MessageBox.Show(string.Format("File '{0}' failed with error: {1}",
+            result.Key, result.Value.Message));
+        }
+      }
+    }
+
+    private SecureString GetPassword()
+    {
+      var dialog = new PasswordDialog();
+      var result = dialog.ShowDialog();
+      if (result != DialogResult.OK) {
+        return null;
+      }
+      return dialog.SecureEdit.SecureString;
+    }
+    
   }
 }

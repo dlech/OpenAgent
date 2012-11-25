@@ -1,4 +1,4 @@
-﻿namespace dlech.AgentWithRice
+﻿namespace dlech.AgentWithRice.WinForms
 {
   partial class MainForm
   {
@@ -33,14 +33,19 @@
       this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
       this.unlockButton = new System.Windows.Forms.Button();
       this.lockButton = new System.Windows.Forms.Button();
+      this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+      this.removeAllbutton = new System.Windows.Forms.Button();
+      this.keyInfoViewer = new dlech.AgentWithRice.WinForms.KeyInfoViewer();
       this.keyWrapperBindingSource = new System.Windows.Forms.BindingSource(this.components);
-      this.keyInfoDataGridView1 = new dlech.AgentWithRice.WinForms.KeyInfoDataGridView();
+      this.tableLayoutPanel1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.keyWrapperBindingSource)).BeginInit();
       this.SuspendLayout();
       // 
       // addKeyButton
       // 
-      this.addKeyButton.Location = new System.Drawing.Point(341, 236);
+      this.addKeyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+      this.addKeyButton.AutoSize = true;
+      this.addKeyButton.Location = new System.Drawing.Point(165, 3);
       this.addKeyButton.Name = "addKeyButton";
       this.addKeyButton.Size = new System.Drawing.Size(75, 23);
       this.addKeyButton.TabIndex = 1;
@@ -50,24 +55,28 @@
       // 
       // removeKeyButton
       // 
-      this.removeKeyButton.Location = new System.Drawing.Point(422, 236);
+      this.removeKeyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+      this.removeKeyButton.AutoSize = true;
+      this.removeKeyButton.Location = new System.Drawing.Point(246, 3);
       this.removeKeyButton.Name = "removeKeyButton";
       this.removeKeyButton.Size = new System.Drawing.Size(75, 23);
       this.removeKeyButton.TabIndex = 2;
-      this.removeKeyButton.Text = "Remove Key";
+      this.removeKeyButton.Text = "Remove";
       this.removeKeyButton.UseVisualStyleBackColor = true;
       this.removeKeyButton.Click += new System.EventHandler(this.removeKeyButton_Click);
       // 
       // openFileDialog
       // 
-      this.openFileDialog.Filter = "Putty Private Key files|*.ppk|OpenSSH SSH2 Private Key files|*.*";
+      this.openFileDialog.Filter = "Putty Private Key files|*.ppk|All files|*.*";
       this.openFileDialog.Multiselect = true;
       this.openFileDialog.Title = "Open SSH Key File";
       this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog_FileOk);
       // 
       // unlockButton
       // 
-      this.unlockButton.Location = new System.Drawing.Point(260, 235);
+      this.unlockButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+      this.unlockButton.AutoSize = true;
+      this.unlockButton.Location = new System.Drawing.Point(84, 3);
       this.unlockButton.Name = "unlockButton";
       this.unlockButton.Size = new System.Drawing.Size(75, 23);
       this.unlockButton.TabIndex = 3;
@@ -77,7 +86,9 @@
       // 
       // lockButton
       // 
-      this.lockButton.Location = new System.Drawing.Point(179, 235);
+      this.lockButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+      this.lockButton.AutoSize = true;
+      this.lockButton.Location = new System.Drawing.Point(3, 3);
       this.lockButton.Name = "lockButton";
       this.lockButton.Size = new System.Drawing.Size(75, 23);
       this.lockButton.TabIndex = 4;
@@ -85,32 +96,70 @@
       this.lockButton.UseVisualStyleBackColor = true;
       this.lockButton.Click += new System.EventHandler(this.lockButton_Click);
       // 
-      // keyWrapperBindingSource
+      // tableLayoutPanel1
       // 
-      this.keyWrapperBindingSource.DataSource = typeof(dlech.AgentWithRice.KeyWrapper);
+      this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+      this.tableLayoutPanel1.AutoSize = true;
+      this.tableLayoutPanel1.ColumnCount = 5;
+      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+      this.tableLayoutPanel1.Controls.Add(this.removeAllbutton, 4, 0);
+      this.tableLayoutPanel1.Controls.Add(this.lockButton, 0, 0);
+      this.tableLayoutPanel1.Controls.Add(this.unlockButton, 1, 0);
+      this.tableLayoutPanel1.Controls.Add(this.removeKeyButton, 3, 0);
+      this.tableLayoutPanel1.Controls.Add(this.addKeyButton, 2, 0);
+      this.tableLayoutPanel1.Location = new System.Drawing.Point(142, 170);
+      this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+      this.tableLayoutPanel1.RowCount = 1;
+      this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+      this.tableLayoutPanel1.Size = new System.Drawing.Size(405, 29);
+      this.tableLayoutPanel1.TabIndex = 6;
+      // 
+      // removeAllbutton
+      // 
+      this.removeAllbutton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+      this.removeAllbutton.AutoSize = true;
+      this.removeAllbutton.Location = new System.Drawing.Point(327, 3);
+      this.removeAllbutton.Name = "removeAllbutton";
+      this.removeAllbutton.Size = new System.Drawing.Size(75, 23);
+      this.removeAllbutton.TabIndex = 5;
+      this.removeAllbutton.Text = "Remove All";
+      this.removeAllbutton.UseVisualStyleBackColor = true;
+      this.removeAllbutton.Click += new System.EventHandler(this.removeAllbutton_Click);
       // 
       // keyInfoDataGridView1
       // 
-      this.keyInfoDataGridView1.Location = new System.Drawing.Point(130, 43);
-      this.keyInfoDataGridView1.Name = "keyInfoDataGridView1";
-      this.keyInfoDataGridView1.Size = new System.Drawing.Size(424, 129);
-      this.keyInfoDataGridView1.TabIndex = 5;
+      this.keyInfoViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.keyInfoViewer.Location = new System.Drawing.Point(12, 12);
+      this.keyInfoViewer.Name = "keyInfoDataGridView1";
+      this.keyInfoViewer.Size = new System.Drawing.Size(678, 152);
+      this.keyInfoViewer.TabIndex = 5;
+      // 
+      // keyWrapperBindingSource
+      // 
+      this.keyWrapperBindingSource.DataSource = typeof(dlech.AgentWithRice.KeyWrapper);
       // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(732, 434);
-      this.Controls.Add(this.keyInfoDataGridView1);
-      this.Controls.Add(this.lockButton);
-      this.Controls.Add(this.unlockButton);
-      this.Controls.Add(this.removeKeyButton);
-      this.Controls.Add(this.addKeyButton);
+      this.ClientSize = new System.Drawing.Size(702, 211);
+      this.Controls.Add(this.tableLayoutPanel1);
+      this.Controls.Add(this.keyInfoViewer);
       this.Name = "MainForm";
-      this.Text = "Form1";
+      this.Text = "Agent With Rice";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+      this.Load += new System.EventHandler(this.MainForm_Load);
+      this.tableLayoutPanel1.ResumeLayout(false);
+      this.tableLayoutPanel1.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.keyWrapperBindingSource)).EndInit();
       this.ResumeLayout(false);
+      this.PerformLayout();
 
     }
 
@@ -122,7 +171,9 @@
     private System.Windows.Forms.OpenFileDialog openFileDialog;
     private System.Windows.Forms.Button unlockButton;
     private System.Windows.Forms.Button lockButton;
-    private WinForms.KeyInfoDataGridView keyInfoDataGridView1;
+    private WinForms.KeyInfoViewer keyInfoViewer;
+    private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+    private System.Windows.Forms.Button removeAllbutton;
   }
 }
 
