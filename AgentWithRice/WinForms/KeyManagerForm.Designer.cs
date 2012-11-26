@@ -1,6 +1,6 @@
 ﻿namespace dlech.AgentWithRice.WinForms
 {
-  partial class MainForm
+  partial class KeyManagerForm
   {
     /// <summary>
     /// Required designer variable.
@@ -35,7 +35,7 @@
       this.lockButton = new System.Windows.Forms.Button();
       this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
       this.removeAllbutton = new System.Windows.Forms.Button();
-      this.keyInfoViewer = new dlech.AgentWithRice.WinForms.KeyInfoViewer();
+      this.keyInfoViewer = new dlech.AgentWithRice.WinForms.KeyInfoView();
       this.keyWrapperBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.tableLayoutPanel1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.keyWrapperBindingSource)).BeginInit();
@@ -171,7 +171,7 @@
     private System.Windows.Forms.OpenFileDialog openFileDialog;
     private System.Windows.Forms.Button unlockButton;
     private System.Windows.Forms.Button lockButton;
-    private WinForms.KeyInfoViewer keyInfoViewer;
+    private WinForms.KeyInfoView keyInfoViewer;
     private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     private System.Windows.Forms.Button removeAllbutton;
   }

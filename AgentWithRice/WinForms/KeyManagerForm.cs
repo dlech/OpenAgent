@@ -15,9 +15,8 @@ using System.Security;
 
 namespace dlech.AgentWithRice.WinForms
 {
-  public partial class MainForm : Form
+  public partial class KeyManagerForm : Form
   {
-    Agent mAgent;
     PasswordDialog mPasswordDialog;
 
     private PasswordDialog PasswordDialog
@@ -31,23 +30,17 @@ namespace dlech.AgentWithRice.WinForms
       }
     }
 
-    public MainForm()
+    public KeyManagerForm()
     {
       InitializeComponent();
     }
 
     private void MainForm_Load(object sender, EventArgs e)
     {
-      try {
-        mAgent = new PageantAgent();
-      } catch (PageantRunningException) {
-        MessageBox.Show("Another instance of Pageant is running. Application will now close.");
-        Close();
-        return;
-      }
-      keyInfoViewer.SetAgent(mAgent);
-      mAgent.KeyListChanged += AgentKeyListChangeHandler;
-      mAgent.Locked += AgentLockHandler;
+      
+      keyInfoViewer.SetAgent(Program.Agent);
+      Program.Agent.KeyListChanged += AgentKeyListChangeHandler;
+      Program.Agent.Locked += AgentLockHandler;
       keyInfoViewer.dataGridView.SelectionChanged += keyInfoViewer_SelectionChanged;
       UpdateButtonStates();
     }
@@ -56,10 +49,9 @@ namespace dlech.AgentWithRice.WinForms
     {
       
       Properties.Settings.Default.Save();
-      mAgent.KeyListChanged -= AgentKeyListChangeHandler;
-      mAgent.Locked -= AgentLockHandler;
+      Program.Agent.KeyListChanged -= AgentKeyListChangeHandler;
+      Program.Agent.Locked -= AgentLockHandler;
       keyInfoViewer.dataGridView.SelectionChanged -= keyInfoViewer_SelectionChanged;
-      mAgent.Dispose();
     }
 
     private void addKeyButton_Click(object sender, EventArgs e)
@@ -70,11 +62,7 @@ namespace dlech.AgentWithRice.WinForms
     private void openFileDialog_FileOk(object sender, CancelEventArgs e)
     {
       UseWaitCursor = true;
-      var addFileResults = mAgent.AddFiles(openFileDialog.FileNames, GetPassword);
-      foreach (var result in addFileResults) {
-        MessageBox.Show(string.Format("File '{0}' failed with error: {1}",
-          result.Key, result.Value.Message));
-      }
+      Program.Agent.AddKeysFromFiles(openFileDialog.FileNames);
       UseWaitCursor = false;
     }
 
@@ -88,7 +76,7 @@ namespace dlech.AgentWithRice.WinForms
       foreach (DataGridViewRow row in keyInfoViewer.dataGridView.SelectedRows) {
         var keyWrapper = row.DataBoundItem as KeyWrapper;
         var key = keyWrapper.GetKey();
-        mAgent.RemoveKey(key);
+        Program.Agent.RemoveKey(key);
       }
     }
 
@@ -102,13 +90,13 @@ namespace dlech.AgentWithRice.WinForms
 
     private void UpdateButtonStates()
     {
-      lockButton.Enabled = !mAgent.IsLocked;
-      unlockButton.Enabled = mAgent.IsLocked;
-      addKeyButton.Enabled = !mAgent.IsLocked;
+      lockButton.Enabled = !Program.Agent.IsLocked;
+      unlockButton.Enabled = Program.Agent.IsLocked;
+      addKeyButton.Enabled = !Program.Agent.IsLocked;
       removeKeyButton.Enabled = keyInfoViewer.dataGridView.SelectedRows.Count > 0 &&
-        !mAgent.IsLocked;
+        !Program.Agent.IsLocked;
       removeAllbutton.Enabled = keyInfoViewer.dataGridView.Rows.Count > 0 &&
-        !mAgent.IsLocked;
+        !Program.Agent.IsLocked;
     }
 
     private void lockButton_Click(object sender, EventArgs e)
@@ -118,30 +106,30 @@ namespace dlech.AgentWithRice.WinForms
         return;
       }
       if (PasswordDialog.SecureEdit.TextLength == 0) {
-        result = MessageBox.Show("Are you sure you want to lock using an empty passphrase?",
-          "", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+        result = MessageBox.Show(Strings.keyManagerAreYouSureLockPassphraseEmpty,
+          string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question,
           MessageBoxDefaultButton.Button2);
         if (result != DialogResult.Yes) {
           return;
         }
       }
-      mAgent.Lock(PasswordDialog.SecureEdit.ToUtf8());
+      Program.Agent.Lock(PasswordDialog.SecureEdit.ToUtf8());
     }
 
     private void unlockButton_Click(object sender, EventArgs e)
     {
       var result = PasswordDialog.ShowDialog();
       if (result == DialogResult.OK) {
-        mAgent.Unlock(PasswordDialog.SecureEdit.ToUtf8());
+        Program.Agent.Unlock(PasswordDialog.SecureEdit.ToUtf8());
       }
     }
 
     
     private void removeAllbutton_Click(object sender, EventArgs e)
     {
-      var keyList = mAgent.KeyList.ToList();
+      var keyList = Program.Agent.KeyList.ToList();
       foreach (var key in keyList) {
-        mAgent.RemoveKey(key);
+        Program.Agent.RemoveKey(key);
       }
     }
 
@@ -154,13 +142,6 @@ namespace dlech.AgentWithRice.WinForms
       });
     }
 
-    private SecureString GetPassword()
-    {
-      var result = mPasswordDialog.ShowDialog();
-      if (result != DialogResult.OK) {
-        return null;
-      }
-      return mPasswordDialog.SecureEdit.SecureString;
-    }
+    
   }
 }

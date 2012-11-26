@@ -65,18 +65,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgentMode.cs" />
+    <Compile Include="CommandLineArgs.cs" />
     <Compile Include="KeyWrapper.cs" />
-    <Compile Include="WinForms\KeyInfoDataGridView.cs">
+    <Compile Include="WinForms\KeyInfoView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WinForms\KeyInfoDataGridView.Designer.cs">
-      <DependentUpon>KeyInfoDataGridView.cs</DependentUpon>
+    <Compile Include="WinForms\KeyInfoView.Designer.cs">
+      <DependentUpon>KeyInfoView.cs</DependentUpon>
     </Compile>
-    <Compile Include="WinForms\MainForm.cs">
+    <Compile Include="WinForms\KeyManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WinForms\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="WinForms\KeyManagerForm.Designer.cs">
+      <DependentUpon>KeyManagerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,6 +87,11 @@
     </Compile>
     <Compile Include="WinForms\PasswordDialog.Designer.cs">
       <DependentUpon>PasswordDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
     <Compile Include="WinForms\SecureEdit.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -97,14 +104,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="WinForms\KeyInfoDataGridView.resx">
-      <DependentUpon>KeyInfoDataGridView.cs</DependentUpon>
+    <EmbeddedResource Include="WinForms\KeyInfoView.resx">
+      <DependentUpon>KeyInfoView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WinForms\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="WinForms\KeyManagerForm.resx">
+      <DependentUpon>KeyManagerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WinForms\PasswordDialog.resx">
       <DependentUpon>PasswordDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\DataSources\KeyWrapper.datasource" />

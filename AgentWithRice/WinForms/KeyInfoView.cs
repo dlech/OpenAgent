@@ -8,24 +8,28 @@ using System.Text;
 using System.Windows.Forms;
 using dlech.SshAgentLib;
 using System.Security;
+using System.IO;
 
 namespace dlech.AgentWithRice.WinForms
 {
-  public partial class KeyInfoViewer : UserControl
+  public partial class KeyInfoView : UserControl
   {
     private Agent mAgent;
     BindingList<KeyWrapper> mKeyCollection;
-    
-    public KeyInfoViewer()
+
+    public KeyInfoView()
     {
       InitializeComponent();
     }
 
     public void SetAgent(Agent aAgent)
-    {      
+    {
       mAgent = aAgent;
 
       mKeyCollection = new BindingList<KeyWrapper>();
+      foreach (var key in mAgent.KeyList) {
+        mKeyCollection.Add(new KeyWrapper(key));
+      }
       dataGridView.DataSource = mKeyCollection;
       mAgent.KeyListChanged += AgentKeyListChangeHandler;
       mAgent.Locked += AgentLockHandler;
@@ -71,17 +75,20 @@ namespace dlech.AgentWithRice.WinForms
 
     private void UpdateVisibility()
     {
-      dataGridView.Visible = mAgent.KeyList.Count() > 0 && !mAgent.IsLocked;
-      if (mAgent.IsLocked) {
-        messageLabel.Text = "Locked";
+      dataGridView.Visible = mAgent != null && mAgent.KeyList.Count() > 0 &&
+        !mAgent.IsLocked;
+      if (mAgent != null && mAgent.IsLocked) {
+        messageLabel.Text = Strings.keyInfoViewLocked;
+      } else if (mAgent != null) {
+        messageLabel.Text = Strings.keyInfoViewNoKeys;
       } else {
-        messageLabel.Text = "No Keys Loaded";
+        messageLabel.Text = Strings.keyInfoViewClickRefresh;
       }
     }
 
     private void any_DragEnter(object sender, DragEventArgs e)
     {
-      if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
+      if ((mAgent != null) && e.Data.GetDataPresent(DataFormats.FileDrop)) {
         e.Effect = DragDropEffects.Move;
       } else {
         e.Effect = DragDropEffects.None;
@@ -92,23 +99,12 @@ namespace dlech.AgentWithRice.WinForms
     {
       if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
         var fileNames = e.Data.GetData(DataFormats.FileDrop) as string[];
-        var addFileResults = mAgent.AddFiles(fileNames, GetPassword);
-        foreach (var result in addFileResults) {
-          MessageBox.Show(string.Format("File '{0}' failed with error: {1}",
-            result.Key, result.Value.Message));
+        if (mAgent != null) {
+          UseWaitCursor = true;
+          mAgent.AddKeysFromFiles(fileNames);
+          UseWaitCursor = false;
         }
       }
     }
-
-    private SecureString GetPassword()
-    {
-      var dialog = new PasswordDialog();
-      var result = dialog.ShowDialog();
-      if (result != DialogResult.OK) {
-        return null;
-      }
-      return dialog.SecureEdit.SecureString;
-    }
-    
   }
 }

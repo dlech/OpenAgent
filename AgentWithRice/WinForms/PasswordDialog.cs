@@ -31,6 +31,7 @@ namespace dlech.AgentWithRice.WinForms
     private void PasswordDialog_Load(object sender, EventArgs e)
     {
       mSecureEdit.Attach(passwordTextBox, null, true);
+      Activate();
     }
 
     private void PasswordDialog_FormClosing(object sender, FormClosingEventArgs e)

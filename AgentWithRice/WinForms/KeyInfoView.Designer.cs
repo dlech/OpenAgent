@@ -1,6 +1,6 @@
 ﻿namespace dlech.AgentWithRice.WinForms
 {
-  partial class KeyInfoViewer
+  partial class KeyInfoView
   {
     /// <summary> 
     /// Required designer variable.
