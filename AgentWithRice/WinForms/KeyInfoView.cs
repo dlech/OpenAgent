@@ -14,7 +14,7 @@ namespace dlech.AgentWithRice.WinForms
 {
   public partial class KeyInfoView : UserControl
   {
-    private Agent mAgent;
+    private IAgent mAgent;
     BindingList<KeyWrapper> mKeyCollection;
 
     public KeyInfoView()
@@ -22,17 +22,20 @@ namespace dlech.AgentWithRice.WinForms
       InitializeComponent();
     }
 
-    public void SetAgent(Agent aAgent)
+    public void SetAgent(IAgent aAgent)
     {
       mAgent = aAgent;
 
       mKeyCollection = new BindingList<KeyWrapper>();
-      foreach (var key in mAgent.KeyList) {
+      foreach (var key in mAgent.GetAllKeys()) {
         mKeyCollection.Add(new KeyWrapper(key));
       }
       dataGridView.DataSource = mKeyCollection;
-      mAgent.KeyListChanged += AgentKeyListChangeHandler;
-      mAgent.Locked += AgentLockHandler;
+      if (mAgent is Agent) {
+        var agent = mAgent as Agent;
+        agent.KeyListChanged += AgentKeyListChangeHandler;
+        agent.Locked += AgentLockHandler;
+      }
       UpdateVisibility();
     }
 
@@ -74,12 +77,13 @@ namespace dlech.AgentWithRice.WinForms
     }
 
     private void UpdateVisibility()
-    {
-      dataGridView.Visible = mAgent != null && mAgent.KeyList.Count() > 0 &&
-        !mAgent.IsLocked;
-      if (mAgent != null && mAgent.IsLocked) {
+    {      
+      var agent = mAgent as Agent;
+      dataGridView.Visible = agent != null && agent.KeyCount > 0 &&
+        !agent.IsLocked;
+      if (agent != null && agent.IsLocked) {
         messageLabel.Text = Strings.keyInfoViewLocked;
-      } else if (mAgent != null) {
+      } else if (agent != null) {
         messageLabel.Text = Strings.keyInfoViewNoKeys;
       } else {
         messageLabel.Text = Strings.keyInfoViewClickRefresh;

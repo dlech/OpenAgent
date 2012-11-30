@@ -33,11 +33,11 @@
       this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
       this.unlockButton = new System.Windows.Forms.Button();
       this.lockButton = new System.Windows.Forms.Button();
-      this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+      this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
       this.removeAllbutton = new System.Windows.Forms.Button();
       this.keyInfoViewer = new dlech.AgentWithRice.WinForms.KeyInfoView();
       this.keyWrapperBindingSource = new System.Windows.Forms.BindingSource(this.components);
-      this.tableLayoutPanel1.SuspendLayout();
+      this.tableLayoutPanel.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.keyWrapperBindingSource)).BeginInit();
       this.SuspendLayout();
       // 
@@ -96,27 +96,27 @@
       this.lockButton.UseVisualStyleBackColor = true;
       this.lockButton.Click += new System.EventHandler(this.lockButton_Click);
       // 
-      // tableLayoutPanel1
+      // tableLayoutPanel
       // 
-      this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-      this.tableLayoutPanel1.AutoSize = true;
-      this.tableLayoutPanel1.ColumnCount = 5;
-      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-      this.tableLayoutPanel1.Controls.Add(this.removeAllbutton, 4, 0);
-      this.tableLayoutPanel1.Controls.Add(this.lockButton, 0, 0);
-      this.tableLayoutPanel1.Controls.Add(this.unlockButton, 1, 0);
-      this.tableLayoutPanel1.Controls.Add(this.removeKeyButton, 3, 0);
-      this.tableLayoutPanel1.Controls.Add(this.addKeyButton, 2, 0);
-      this.tableLayoutPanel1.Location = new System.Drawing.Point(142, 170);
-      this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-      this.tableLayoutPanel1.RowCount = 1;
-      this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-      this.tableLayoutPanel1.Size = new System.Drawing.Size(405, 29);
-      this.tableLayoutPanel1.TabIndex = 6;
+      this.tableLayoutPanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+      this.tableLayoutPanel.AutoSize = true;
+      this.tableLayoutPanel.ColumnCount = 5;
+      this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+      this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+      this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+      this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+      this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+      this.tableLayoutPanel.Controls.Add(this.removeAllbutton, 4, 0);
+      this.tableLayoutPanel.Controls.Add(this.lockButton, 0, 0);
+      this.tableLayoutPanel.Controls.Add(this.unlockButton, 1, 0);
+      this.tableLayoutPanel.Controls.Add(this.removeKeyButton, 3, 0);
+      this.tableLayoutPanel.Controls.Add(this.addKeyButton, 2, 0);
+      this.tableLayoutPanel.Location = new System.Drawing.Point(142, 170);
+      this.tableLayoutPanel.Name = "tableLayoutPanel";
+      this.tableLayoutPanel.RowCount = 1;
+      this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+      this.tableLayoutPanel.Size = new System.Drawing.Size(405, 29);
+      this.tableLayoutPanel.TabIndex = 6;
       // 
       // removeAllbutton
       // 
@@ -130,13 +130,13 @@
       this.removeAllbutton.UseVisualStyleBackColor = true;
       this.removeAllbutton.Click += new System.EventHandler(this.removeAllbutton_Click);
       // 
-      // keyInfoDataGridView1
+      // keyInfoViewer
       // 
       this.keyInfoViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.keyInfoViewer.Location = new System.Drawing.Point(12, 12);
-      this.keyInfoViewer.Name = "keyInfoDataGridView1";
+      this.keyInfoViewer.Name = "keyInfoViewer";
       this.keyInfoViewer.Size = new System.Drawing.Size(678, 152);
       this.keyInfoViewer.TabIndex = 5;
       // 
@@ -144,19 +144,19 @@
       // 
       this.keyWrapperBindingSource.DataSource = typeof(dlech.AgentWithRice.KeyWrapper);
       // 
-      // MainForm
+      // KeyManagerForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(702, 211);
-      this.Controls.Add(this.tableLayoutPanel1);
+      this.Controls.Add(this.tableLayoutPanel);
       this.Controls.Add(this.keyInfoViewer);
-      this.Name = "MainForm";
+      this.Name = "KeyManagerForm";
       this.Text = "Agent With Rice";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
       this.Load += new System.EventHandler(this.MainForm_Load);
-      this.tableLayoutPanel1.ResumeLayout(false);
-      this.tableLayoutPanel1.PerformLayout();
+      this.tableLayoutPanel.ResumeLayout(false);
+      this.tableLayoutPanel.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.keyWrapperBindingSource)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
@@ -172,7 +172,7 @@
     private System.Windows.Forms.Button unlockButton;
     private System.Windows.Forms.Button lockButton;
     private WinForms.KeyInfoView keyInfoViewer;
-    private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+    private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
     private System.Windows.Forms.Button removeAllbutton;
   }
 }

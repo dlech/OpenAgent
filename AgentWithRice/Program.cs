@@ -12,7 +12,7 @@ namespace dlech.AgentWithRice
 {
   static class Program
   {
-    internal static Agent Agent { get; private set; }
+    internal static IAgent Agent { get; private set; }
 
     /// <summary>
     /// The main entry point for the application.
@@ -41,14 +41,7 @@ namespace dlech.AgentWithRice
       switch (CommandLineArgs.Mode) {
         case AgentMode.Server:
           try {
-            Agent = new PageantAgent();
-            var keyManagerForm = new KeyManagerForm();
-            keyManagerForm.FormClosed +=
-              delegate(object aSender, FormClosedEventArgs aEventArgs)
-              {
-                Environment.Exit(0);
-              };
-            keyManagerForm.Show();
+            Agent = new PageantAgent();            
           } catch (PageantRunningException) {
             Debug.Fail("should not get here unless Pageant started in last few msec.");
             Environment.Exit(1);
@@ -56,22 +49,33 @@ namespace dlech.AgentWithRice
           }
           break;
         case AgentMode.Client:
+          Agent = new PageantClient();
+          break;
         default:
           Debug.Fail("unknown mode");
           Environment.Exit(1);
           return;
-      }
+      }     
       Agent.AddKeysFromFiles(CommandLineArgs.Files);
       Application.ApplicationExit +=
         delegate(object aSender, EventArgs aEventArgs)
         {
-          Agent.Dispose();
-        };      
+          if (Agent is Agent) {
+            ((Agent)Agent).Dispose();
+          }
+        };
+      var keyManagerForm = new KeyManagerForm();
+      keyManagerForm.FormClosed +=
+        delegate(object aSender, FormClosedEventArgs aEventArgs)
+        {
+          Environment.Exit(0);
+        };
+      keyManagerForm.Show();
       Application.Run();
       Environment.Exit(0);
     }
 
-    public static void AddKeysFromFiles(this Agent aAgent, string[] aFileNames)
+    public static void AddKeysFromFiles(this IAgent aAgent, string[] aFileNames)
     {
       foreach (var fileName in aFileNames) {
         try {
@@ -83,7 +87,7 @@ namespace dlech.AgentWithRice
       }
     }
 
-    public static void AddKeyFromFile(this Agent aAgent, string aFileName)
+    public static void AddKeyFromFile(this IAgent aAgent, string aFileName)
     {
       var getPassword = PasswordCallbackFactory(
         string.Format(Strings.msgEnterPassphrase, Path.GetFileName(aFileName)));

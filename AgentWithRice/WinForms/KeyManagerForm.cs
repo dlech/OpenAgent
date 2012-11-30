@@ -39,8 +39,11 @@ namespace dlech.AgentWithRice.WinForms
     {
       
       keyInfoViewer.SetAgent(Program.Agent);
-      Program.Agent.KeyListChanged += AgentKeyListChangeHandler;
-      Program.Agent.Locked += AgentLockHandler;
+      if (Program.Agent is Agent) {
+        var agent = Program.Agent as Agent;
+        agent.KeyListChanged += AgentKeyListChangeHandler;
+        agent.Locked += AgentLockHandler;
+      }
       keyInfoViewer.dataGridView.SelectionChanged += keyInfoViewer_SelectionChanged;
       UpdateButtonStates();
     }
@@ -49,8 +52,11 @@ namespace dlech.AgentWithRice.WinForms
     {
       
       Properties.Settings.Default.Save();
-      Program.Agent.KeyListChanged -= AgentKeyListChangeHandler;
-      Program.Agent.Locked -= AgentLockHandler;
+      if (Program.Agent is Agent) {
+        var agent = Program.Agent as Agent;
+        agent.KeyListChanged -= AgentKeyListChangeHandler;
+        agent.Locked -= AgentLockHandler;
+      }
       keyInfoViewer.dataGridView.SelectionChanged -= keyInfoViewer_SelectionChanged;
     }
 
@@ -90,13 +96,18 @@ namespace dlech.AgentWithRice.WinForms
 
     private void UpdateButtonStates()
     {
-      lockButton.Enabled = !Program.Agent.IsLocked;
-      unlockButton.Enabled = Program.Agent.IsLocked;
-      addKeyButton.Enabled = !Program.Agent.IsLocked;
+      var isLocked = false;      
+      var agent = Program.Agent as Agent;
+      if (agent != null) {
+        isLocked = agent.IsLocked;
+      }
+      lockButton.Enabled = !isLocked;
+      unlockButton.Enabled = agent == null || isLocked;
+      addKeyButton.Enabled = !isLocked;
       removeKeyButton.Enabled = keyInfoViewer.dataGridView.SelectedRows.Count > 0 &&
-        !Program.Agent.IsLocked;
+        !isLocked;
       removeAllbutton.Enabled = keyInfoViewer.dataGridView.Rows.Count > 0 &&
-        !Program.Agent.IsLocked;
+        !isLocked;
     }
 
     private void lockButton_Click(object sender, EventArgs e)
@@ -127,10 +138,7 @@ namespace dlech.AgentWithRice.WinForms
     
     private void removeAllbutton_Click(object sender, EventArgs e)
     {
-      var keyList = Program.Agent.KeyList.ToList();
-      foreach (var key in keyList) {
-        Program.Agent.RemoveKey(key);
-      }
+      Program.Agent.RemoveAllKeys();
     }
 
     private void AgentKeyListChangeHandler(object aSender,
