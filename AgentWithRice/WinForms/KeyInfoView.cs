@@ -15,7 +15,7 @@ namespace dlech.AgentWithRice.WinForms
   public partial class KeyInfoView : UserControl
   {
     private IAgent mAgent;
-    BindingList<KeyWrapper> mKeyCollection;
+    private BindingList<KeyWrapper> mKeyCollection;
 
     public KeyInfoView()
     {
@@ -27,14 +27,25 @@ namespace dlech.AgentWithRice.WinForms
       mAgent = aAgent;
 
       mKeyCollection = new BindingList<KeyWrapper>();
-      foreach (var key in mAgent.GetAllKeys()) {
-        mKeyCollection.Add(new KeyWrapper(key));
+      try {
+        foreach (var key in mAgent.GetAllKeys()) {
+          mKeyCollection.Add(new KeyWrapper(key));
+        }
+        // TODO show different error messages for specific exceptions
+        // should also do something besides MessageBox so that this control
+        // can be integrated into other applications
+      } catch (Exception) {
+        MessageBox.Show(Strings.errListKeysFailed, Program.AssemblyTitle,
+          MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
       dataGridView.DataSource = mKeyCollection;
       if (mAgent is Agent) {
         var agent = mAgent as Agent;
         agent.KeyListChanged += AgentKeyListChangeHandler;
         agent.Locked += AgentLockHandler;
+      } else {
+        confirmDataGridViewCheckBoxColumn.Visible = false;
+        lifetimeDataGridViewCheckBoxColumn.Visible = false;
       }
       UpdateVisibility();
     }
@@ -79,8 +90,7 @@ namespace dlech.AgentWithRice.WinForms
     private void UpdateVisibility()
     {      
       var agent = mAgent as Agent;
-      dataGridView.Visible = agent != null && agent.KeyCount > 0 &&
-        !agent.IsLocked;
+      dataGridView.Visible = dataGridView.RowCount > 0 && (agent == null || !agent.IsLocked);
       if (agent != null && agent.IsLocked) {
         messageLabel.Text = Strings.keyInfoViewLocked;
       } else if (agent != null) {
@@ -106,6 +116,10 @@ namespace dlech.AgentWithRice.WinForms
         if (mAgent != null) {
           UseWaitCursor = true;
           mAgent.AddKeysFromFiles(fileNames);
+          if (!(mAgent is Agent)) {
+            // if this is client, then reload key list from remote agent
+            SetAgent(mAgent);
+          }
           UseWaitCursor = false;
         }
       }

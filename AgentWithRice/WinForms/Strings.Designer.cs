@@ -61,6 +61,15 @@ namespace dlech.AgentWithRice.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Agent failure.
+        /// </summary>
+        internal static string errAddKeyFailed {
+            get {
+                return ResourceManager.GetString("errAddKeyFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File &apos;{0}&apos; failed with error: {1}.
         /// </summary>
         internal static string errFileOpenFailed {
@@ -70,11 +79,47 @@ namespace dlech.AgentWithRice.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error getting key list.
+        /// </summary>
+        internal static string errListKeysFailed {
+            get {
+                return ResourceManager.GetString("errListKeysFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locking failed.
+        /// </summary>
+        internal static string errLockFailed {
+            get {
+                return ResourceManager.GetString("errLockFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pageant is already running. Application will now close..
         /// </summary>
         internal static string errPageantRunning {
             get {
                 return ResourceManager.GetString("errPageantRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing key {0} failed.
+        /// </summary>
+        internal static string errRemoveFailed {
+            get {
+                return ResourceManager.GetString("errRemoveFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unlocking failed.
+        /// </summary>
+        internal static string errUnlockFailed {
+            get {
+                return ResourceManager.GetString("errUnlockFailed", resourceCulture);
             }
         }
         
