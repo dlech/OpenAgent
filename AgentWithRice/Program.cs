@@ -14,13 +14,15 @@ namespace dlech.AgentWithRice
   {
     internal static IAgent Agent { get; private set; }
 
+    private static string mAssemblyTitle;
+
     /// <summary>
     /// The main entry point for the application.
     /// </summary>
     [STAThread]
     static void Main(string[] aArgs)
     {
-      Debugger.Launch();
+      //Debugger.Launch();
       CommandLineArgs.Parse(aArgs);
       if (CommandLineArgs.Mode == AgentMode.Server &&
         PageantAgent.CheckPageantRunning()) {
@@ -65,6 +67,9 @@ namespace dlech.AgentWithRice
           }
         };
       var keyManagerForm = new KeyManagerForm();
+      if (!(Agent is Agent)) {
+        keyManagerForm.Text += " - client mode";
+      }
       keyManagerForm.FormClosed +=
         delegate(object aSender, FormClosedEventArgs aEventArgs)
         {
@@ -72,26 +77,31 @@ namespace dlech.AgentWithRice
         };
       keyManagerForm.Show();
       Application.Run();
-      Environment.Exit(0);
     }
 
-    public static void AddKeysFromFiles(this IAgent aAgent, string[] aFileNames)
+    public static void AddKeysFromFiles(this IAgent aAgent, string[] aFileNames,
+      ICollection<Agent.KeyConstraint> aConstraints = null)
     {
       foreach (var fileName in aFileNames) {
         try {
-          Agent.AddKeyFromFile(fileName);
+          Agent.AddKeyFromFile(fileName, aConstraints);
         } catch (Exception ex) {
           MessageBox.Show(string.Format(Strings.errFileOpenFailed,
-            fileName, ex.Message));
+            fileName, ex.Message), AssemblyTitle, MessageBoxButtons.OK,
+            MessageBoxIcon.Error);
         }
       }
     }
 
-    public static void AddKeyFromFile(this IAgent aAgent, string aFileName)
+    public static void AddKeyFromFile(this IAgent aAgent, string aFileName,
+      ICollection<Agent.KeyConstraint> aConstraints)
     {
       var getPassword = PasswordCallbackFactory(
         string.Format(Strings.msgEnterPassphrase, Path.GetFileName(aFileName)));
-      Agent.AddKeyFromFile(aFileName, getPassword);
+      var success = Agent.AddKeyFromFile(aFileName, getPassword, aConstraints);
+      if (!success) {
+        throw new Exception(Strings.errAddKeyFailed);
+      }
     }
 
     public static KeyFormatter.GetPassphraseCallback
@@ -120,22 +130,25 @@ namespace dlech.AgentWithRice
     {
       get
       {
-        // Get all Title attributes on this assembly
-        object[] attributes = Assembly.GetExecutingAssembly()
-          .GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
-        // If there is at least one Title attribute
-        if (attributes.Length > 0) {
-          // Select the first one
-          AssemblyTitleAttribute titleAttribute =
-            (AssemblyTitleAttribute)attributes[0];
-          // If it is not an empty string, return it
-          if (titleAttribute.Title != "")
-            return titleAttribute.Title;
+        if (mAssemblyTitle == null) {
+          // Get all Title attributes on this assembly
+          object[] attributes = Assembly.GetExecutingAssembly()
+            .GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+          // If there is at least one Title attribute
+          if (attributes.Length > 0) {
+            // Select the first one
+            AssemblyTitleAttribute titleAttribute =
+              (AssemblyTitleAttribute)attributes[0];
+            // If it is not an empty string, return it
+            if (titleAttribute.Title != "")
+              return titleAttribute.Title;
+          }
+          // If there was no Title attribute, or if the Title attribute was the
+          // empty string, return the .exe name
+          mAssemblyTitle = System.IO.Path.GetFileNameWithoutExtension(
+            Assembly.GetExecutingAssembly().CodeBase);
         }
-        // If there was no Title attribute, or if the Title attribute was the
-        // empty string, return the .exe name
-        return System.IO.Path.GetFileNameWithoutExtension(
-          Assembly.GetExecutingAssembly().CodeBase);
+        return mAssemblyTitle;
       }
     }
 
