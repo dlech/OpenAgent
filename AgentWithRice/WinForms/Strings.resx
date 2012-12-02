@@ -140,6 +140,14 @@
   <data name="errUnlockFailed" xml:space="preserve">
     <value>Unlocking failed</value>
   </data>
+  <data name="filterAllFiles" xml:space="preserve">
+    <value>All Files</value>
+    <comment>open file dialog filter name for *.*</comment>
+  </data>
+  <data name="filterPuttyPrivateKeyFiles" xml:space="preserve">
+    <value>PuTTY Private Key Files</value>
+    <comment>open file dialog filter name for *.ppk</comment>
+  </data>
   <data name="keyInfoViewClickRefresh" xml:space="preserve">
     <value>Click 'Refresh' to load keys</value>
   </data>

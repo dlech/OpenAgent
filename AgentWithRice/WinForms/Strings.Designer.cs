@@ -124,6 +124,24 @@ namespace dlech.AgentWithRice.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Files.
+        /// </summary>
+        internal static string filterAllFiles {
+            get {
+                return ResourceManager.GetString("filterAllFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PuTTY Private Key Files.
+        /// </summary>
+        internal static string filterPuttyPrivateKeyFiles {
+            get {
+                return ResourceManager.GetString("filterPuttyPrivateKeyFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Click &apos;Refresh&apos; to load keys.
         /// </summary>
         internal static string keyInfoViewClickRefresh {
