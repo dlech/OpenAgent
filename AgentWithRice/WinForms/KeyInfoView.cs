@@ -102,6 +102,7 @@ namespace dlech.AgentWithRice.WinForms
         agent.Locked += AgentLockHandler;
         buttonTableLayoutPanel.Controls.Remove(refreshButton);
         buttonTableLayoutPanel.ColumnCount = 5;
+        agent.ConfirmUserPermissionCallback = ConfirmCallback;
       } else {
         confirmDataGridViewCheckBoxColumn.Visible = false;
         lifetimeDataGridViewCheckBoxColumn.Visible = false;
@@ -197,6 +198,19 @@ namespace dlech.AgentWithRice.WinForms
           break;
       }
       UpdateButtonStates();
+    }
+
+    private bool ConfirmCallback(ISshKey key)
+    {
+      var result = MessageBox.Show(
+        string.Format(Strings.askConfirmKey, key.Comment, key.MD5Fingerprint.ToHexString()),
+        Program.AssemblyTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+        MessageBoxDefaultButton.Button2
+      );
+      if (result == DialogResult.Yes) {
+        return true;
+      }
+      return false;
     }
 
     private void dataGridView_SelectionChanged(object sender, EventArgs e)

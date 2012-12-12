@@ -61,6 +61,15 @@ namespace dlech.AgentWithRice.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A client has requested to use the SSH key &apos;{0}&apos; with fingerprint {1}.
+        /// </summary>
+        internal static string askConfirmKey {
+            get {
+                return ResourceManager.GetString("askConfirmKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Agent failure.
         /// </summary>
         internal static string errAddKeyFailed {

@@ -117,6 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="askConfirmKey" xml:space="preserve">
+    <value>A client has requested to use the SSH key '{0}' with fingerprint {1}</value>
+    <comment>{0} is key comment, {1} is fingerprint</comment>
+  </data>
   <data name="errAddKeyFailed" xml:space="preserve">
     <value>Agent failure</value>
   </data>
