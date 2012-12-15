@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using System.IO;
+using dlech.SshAgentLib;
 
 namespace dlech.AgentWithRice
 {
