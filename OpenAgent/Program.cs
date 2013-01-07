@@ -9,7 +9,7 @@ using System.IO;
 using System.Reflection;
 using SshAgentLib.WinForm;
 
-namespace dlech.AgentWithRice
+namespace dlech.OpenAgent
 {
   static class Program
   {

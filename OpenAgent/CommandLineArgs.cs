@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using dlech.SshAgentLib;
 
-namespace dlech.AgentWithRice
+namespace dlech.OpenAgent
 {
   public static class CommandLineArgs
   {

@@ -8,8 +8,8 @@
     <ProjectGuid>{37B085D7-7B69-4817-93FB-182CB6B30A62}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>dlech.AgentWithRice</RootNamespace>
-    <AssemblyName>AgentWithRice</AssemblyName>
+    <RootNamespace>dlech.OpenAgent</RootNamespace>
+    <AssemblyName>OpenAgent</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -68,7 +68,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>dlech.AgentWithRice.Program</StartupObject>
+    <StartupObject>dlech.OpenAgent.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

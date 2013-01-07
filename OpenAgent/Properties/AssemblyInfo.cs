@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Agent With Rice")]
-[assembly: AssemblyDescription("Ssh Agent")]
+[assembly: AssemblyTitle("OpenAgent")]
+[assembly: AssemblyDescription("SSH Agent")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("David Lechner")]
-[assembly: AssemblyProduct("Agent With Rice")]
+[assembly: AssemblyProduct("OpenAgent")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

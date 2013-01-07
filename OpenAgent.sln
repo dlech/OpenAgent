@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentWithRice", "AgentWithRice\AgentWithRice.csproj", "{37B085D7-7B69-4817-93FB-182CB6B30A62}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAgent", "OpenAgent\OpenAgent.csproj", "{37B085D7-7B69-4817-93FB-182CB6B30A62}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SshAgentLib", "SshAgentLib\SshAgentLib\SshAgentLib.csproj", "{9163B6B6-0603-4C6E-BC67-7111ED8CDDE1}"
 EndProject
