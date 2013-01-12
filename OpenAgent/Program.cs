@@ -7,14 +7,12 @@ using dlech.SshAgentLib;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using SshAgentLib.WinForm;
 
 namespace dlech.OpenAgent
 {
   static class Program
   {
     internal static IAgent Agent { get; private set; }
-
 
     /// <summary>
     /// The main entry point for the application.
@@ -31,8 +29,14 @@ namespace dlech.OpenAgent
         Environment.Exit(1);
         return;
       }
-      if (CommandLineArgs.Mode == AgentMode.Auto) {
-        if (PageantAgent.CheckPageantRunning()) {
+      var isWindows = Environment.OSVersion.Platform == PlatformID.Win32NT;
+      var agentSocketFile = 
+        Environment.GetEnvironmentVariable (UnixClient.SSH_AUTHSOCKET_ENV_NAME);
+      if (CommandLineArgs.Mode == AgentMode.Auto)
+      {
+        if ((isWindows && PageantAgent.CheckPageantRunning()) || 
+            !string.IsNullOrWhiteSpace(agentSocketFile))
+        {
           CommandLineArgs.Mode = AgentMode.Client;
         } else {
           CommandLineArgs.Mode = AgentMode.Server;
@@ -42,16 +46,26 @@ namespace dlech.OpenAgent
       Application.SetCompatibleTextRenderingDefault(false);
       switch (CommandLineArgs.Mode) {
         case AgentMode.Server:
-          try {
-            Agent = new PageantAgent();            
-          } catch (PageantRunningException) {
-            Debug.Fail("should not get here unless Pageant started in last few msec.");
-            Environment.Exit(1);
-            return;
+          if (isWindows) {
+            try {
+              Agent = new PageantAgent();
+              break;
+            } catch (PageantRunningException) {
+              Debug.Fail("should not get here unless Pageant started in last few msec.");
+              Environment.Exit(1);
+              return;
+            } catch (NotSupportedException) {
+              // we wil just try unix socket then
+            }
           }
+          Agent = new UnixAgent();
           break;
         case AgentMode.Client:
-          Agent = new PageantClient();
+          if (isWindows) {
+            Agent = new PageantClient();
+            break;
+          }
+          Agent = new UnixClient();
           break;
         default:
           Debug.Fail("unknown mode");
@@ -78,6 +92,5 @@ namespace dlech.OpenAgent
       keyManagerForm.Show();
       Application.Run();
     }
-
   }
 }
