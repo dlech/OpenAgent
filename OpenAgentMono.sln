@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SshAgentLib", "SshAgentLib\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SshAgentLib.WinForms", "SshAgentLib\SshAgentLib.WinForms\SshAgentLib.WinForms.csproj", "{3BEB6FAE-B14D-4281-8168-DB2A4A0C5FC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SshAgentLib.GTK", "SshAgentLib\SshAgentLib.GTK\SshAgentLib.GTK.csproj", "{D9797E08-73FA-4F41-AB34-789F1BB68F07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,9 +49,21 @@ Global
 		{9163B6B6-0603-4C6E-BC67-7111ED8CDDE1}.Release|x64.Build.0 = Release|x64
 		{9163B6B6-0603-4C6E-BC67-7111ED8CDDE1}.Release|x86.ActiveCfg = Release|x86
 		{9163B6B6-0603-4C6E-BC67-7111ED8CDDE1}.Release|x86.Build.0 = Release|x86
+		{D9797E08-73FA-4F41-AB34-789F1BB68F07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9797E08-73FA-4F41-AB34-789F1BB68F07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9797E08-73FA-4F41-AB34-789F1BB68F07}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D9797E08-73FA-4F41-AB34-789F1BB68F07}.Debug|x64.Build.0 = Debug|Any CPU
+		{D9797E08-73FA-4F41-AB34-789F1BB68F07}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D9797E08-73FA-4F41-AB34-789F1BB68F07}.Debug|x86.Build.0 = Debug|Any CPU
+		{D9797E08-73FA-4F41-AB34-789F1BB68F07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9797E08-73FA-4F41-AB34-789F1BB68F07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9797E08-73FA-4F41-AB34-789F1BB68F07}.Release|x64.ActiveCfg = Release|Any CPU
+		{D9797E08-73FA-4F41-AB34-789F1BB68F07}.Release|x64.Build.0 = Release|Any CPU
+		{D9797E08-73FA-4F41-AB34-789F1BB68F07}.Release|x86.ActiveCfg = Release|Any CPU
+		{D9797E08-73FA-4F41-AB34-789F1BB68F07}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = OpenAgent\OpenAgent.csproj
+		StartupItem = SshAgentLib\SshAgentLib.GTK\SshAgentLib.GTK.csproj
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = None
